@@ -46,8 +46,8 @@ public class Test {
             try {
                 int i = Integer.parseInt(y.trim());
 
-                if (i > 10 || i < 0) {
-                    System.out.println("Число должнобыть от 0 до 10.");
+                if (i > 10 || i <= 0) {
+                    System.out.println("Число должнобыть от 1 до 10.");
                     System.out.println("Попробуйте ещё раз");
                     System.exit(0);
                 }
