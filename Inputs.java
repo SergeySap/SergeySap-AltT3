@@ -1,19 +1,7 @@
 import java.util.Scanner;
-
 public class Inputs {
     String x, y, z;
     void calc() {
-        int stringLength = x.length();
-        String letter1 = (x.substring(0, 1));
-        String lastLetter = (x.substring((stringLength - 1), (stringLength)));
-        if (letter1.equals("\"") && lastLetter.equals("\"")) {
-        } else {
-            System.out.println("Первым должно быть слово в кавычках");
-            System.out.println("Попробуйте ещё раз");
-            System.exit(0);
-        }
-        x = x.replaceAll("\"", "");
-
         char operation = z.charAt(0);
         if (operation == '*' || operation == '/' || operation == '+' || operation == '-') {
 
@@ -40,13 +28,13 @@ public class Inputs {
                     zic = zic.substring(0, 40);
                     zic = zic + "...";
                 }
-
                 System.out.print("\"");
                 System.out.print(zic);
                 System.out.print("\"");
                 System.exit(0);
             } catch (NumberFormatException nfe) {
-                System.out.println("Неверно введенное второе слово");
+                System.out.println("Число должнобыть от 1 до 10 без кавычек.");
+                System.out.println("Попробуйте ещё раз");
             }
         }
         if (operation == '/') {
@@ -129,25 +117,42 @@ class startCalc {
 
     public static void main(String[] args) {
         String x, y, z;
+        x = null;
         Scanner in = new Scanner(System.in);
         System.out.print("Введите задачу: ");
         String line = in.nextLine();
-        String[] getString = line.split(" ");
-        x = getString[0];
-        z = getString[1];
-        y = getString[2];
-        if (x.length() > 10 || z.length() > 1 || y.length() > 10) {
-            System.out.println("Неверно введенные данные");
+        String letter1 = (line.substring(0, 1));
+        if (letter1.equals("\"")) {
+        } else {
+            System.out.println("Первым должно быть слово в кавычках");
+            System.out.println("Попробуйте ещё раз");
             System.exit(0);
         }
-        if (x.length() == 0 || z.length() == 0 || y.length() == 0) {
-            System.out.println("Один из данных отсутствует");
-            System.exit(0);
+        String[] getX = line.split("\" ", 2);
+        x = getX[0];
+
+        try {
+            x = x.replaceAll("\"", "");
+            String[] getYZ = getX[1].split(" ");
+            z = getYZ[0];
+            y = getYZ[1];
+            if (x.length() > 10 || z.length() > 1 || y.length() > 10) {
+                System.out.println("Неверно введенная строка");
+                System.exit(0);
+            }
+            if (x.length() == 0 || z.length() == 0 || y.length() == 0) {
+                System.out.println("Один из данных отсутствует");
+                System.exit(0);
+            }
+            Inputs one = new Inputs();
+            one.x = x;
+            one.y = y;
+            one.z = z;
+            one.calc();
+
+        } catch (Exception e) {
+            System.out.println("Неверно введенная строка");
+
         }
-        Inputs one = new Inputs();
-        one.x = x;
-        one.y = y;
-        one.z = z;
-        one.calc();
     }
 }
