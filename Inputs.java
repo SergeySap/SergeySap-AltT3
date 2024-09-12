@@ -33,7 +33,7 @@ public class Inputs {
                 System.out.print("\"");
                 System.exit(0);
             } catch (NumberFormatException nfe) {
-                System.out.println("Число должнобыть от 1 до 10 без кавычек.");
+                System.out.println("Число должно быть от 1 до 10 без кавычек.");
                 System.out.println("Попробуйте ещё раз");
             }
         }
@@ -63,7 +63,6 @@ public class Inputs {
         int stringLength2 = y.length();
         String letter2 = (y.substring(0, 1));
         String lastLetter2 = (y.substring((stringLength2 - 1), (stringLength2)));
-
         if (letter2.equals("\"") && lastLetter2.equals("\"")) {
 
         } else {
@@ -83,32 +82,23 @@ public class Inputs {
         }
 
         if (operation == '-') {
-            int e, r;
-            e = x.length() - 1;
-            r = y.length() - 1;
-            if (e <= r) {
-                System.out.print("\"");
-                System.out.print("\"");
-                System.exit(0);
-            }
-            char[] charArrayX = x.toCharArray();
-            char[] charArrayY = y.toCharArray();
-            String substr1 = x.substring(0, e + 1);
-            for (int i = 0; i < y.length(); i++) {
-                if (charArrayX[e] != charArrayY[r]) {
-
+            try {
+                int xIndex = x.indexOf(y);
+                int xLindex = xIndex + (y.length());
+                String xOut = x.substring(xIndex, xLindex);
                     System.out.print("\"");
-                    System.out.print(substr1);
+                    System.out.print(x.replace(xOut, ""));
                     System.out.print("\"");
                     System.exit(0);
                 }
-                e--;
-                r--;
-                substr1 = x.substring(0, e + 1);
+
+            catch (Exception e) {
+                System.out.print("\"");
+                System.out.print(x);
+                System.out.print("\"");
+                System.exit(0);
             }
-            System.out.print("\"");
-            System.out.print(substr1);
-            System.out.print("\"");
+
         }
     }
 }
@@ -117,7 +107,6 @@ class startCalc {
 
     public static void main(String[] args) {
         String x, y, z;
-        x = null;
         Scanner in = new Scanner(System.in);
         System.out.print("Введите задачу: ");
         String line = in.nextLine();
@@ -135,13 +124,13 @@ class startCalc {
             x = x.replaceAll("\"", "");
             String[] getYZ = getX[1].split(" ");
             z = getYZ[0];
-            y = getYZ[1];
+            y = getX[1].substring(2);
             if (x.length() > 10 || z.length() > 1 || y.length() > 10) {
                 System.out.println("Неверно введенная строка");
                 System.exit(0);
             }
             if (x.length() == 0 || z.length() == 0 || y.length() == 0) {
-                System.out.println("Один из данных отсутствует");
+                System.out.println("Неверно введенная строка");
                 System.exit(0);
             }
             Inputs one = new Inputs();
